@@ -1,3 +1,32 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+li.page-item {
+    margin: 0 3px;
+}
+a.page-link {
+    border-radius: 50%;
+    display: block;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    transition: all 0.18s ease-in-out;
+}
+a.page-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.2);
+}
+.active a.page-link {
+    background: rgba(0, 0, 0, 0.1);
+}
+a.page-link span.sr-only {
+    display: none;
+}
