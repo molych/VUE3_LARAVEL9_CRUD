@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostController;
+use \App\Http\Controllers\Api\CategoryController;
+use \App\Http\Controllers\Api\TestController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::apiResource('posts', PostController::class);
+Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
