@@ -1,13 +1,8 @@
 <template>
     <div class="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
         <div class="min-w-full align-middle">
-            <div class="mb-4">
-                <!-- <select v-model="selectedCategory" class="block mt-1 w-full sm:w-1/4 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="" selected>-- Filter by category --</option>
-                    <option v-for="category in categories" :value="category.id" :key="category.id">
-                        {{ category.name }}
-                    </option>
-                </select> -->
+            <div class="mb-4 grid lg:grid-cols-4 gap-4">
+                <input v-model="search_global" type="text" placeholder="Search..." class="inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
             </div>
             <table class="min-w-full divide-y divide-gray-200 border">
                 <thead>
@@ -147,6 +142,7 @@ export default {
         const search_id = ref('')
         const search_title = ref('')
         const search_content= ref('')
+        const search_global = ref('')
         const orderColumn = ref('created_at')
         const orderDirection = ref('desc')
         const { posts, getPosts,  deletePost } = usePosts()
@@ -165,6 +161,7 @@ export default {
                 search_id.value,
                 search_title.value,
                 search_content.value,
+                search_global.value,
                 orderColumn.value,
                 orderDirection.value
             );
@@ -176,7 +173,8 @@ export default {
                 current,
                 search_id.value,
                 search_title.value,
-                search_content.value
+                search_content.value,
+                search_global.value
             )
         })
 
@@ -186,7 +184,8 @@ export default {
                 search_category.value,
                 current,
                 search_title.value,
-                search_content.value
+                search_content.value,
+                search_global.value
             )
         })
 
@@ -196,7 +195,8 @@ export default {
                 search_category.value,
                 search_id.value,
                 current,
-                search_content.value
+                search_content.value,
+                search_global.value
 
             )
         })
@@ -208,6 +208,18 @@ export default {
                 search_id.value,
                 search_title.value,
                 current,
+                search_global.value
+            )
+        })
+
+        watch(search_global, (current, previous) => {
+            getPosts(
+                1,
+                search_category.value,
+                search_id.value,
+                search_title.value,
+                search_content.value,
+                current
             )
         })
 
@@ -222,7 +234,8 @@ export default {
             search_category,
             search_id,
             search_title,
-            search_content
+            search_content,
+            search_global
         }
     }
 }

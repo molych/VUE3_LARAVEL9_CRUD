@@ -62,7 +62,7 @@ class PostController extends Controller
                 });
             })
             ->orderBy($orderColumn, $orderDirection)
-            ->paginate(10);
+            ->paginate(2);
     
         if ($page > $paginator->lastPage()) {
             return response()->json([

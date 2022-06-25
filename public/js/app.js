@@ -21812,6 +21812,7 @@ __webpack_require__.r(__webpack_exports__);
     var search_id = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
     var search_title = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
     var search_content = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
+    var search_global = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
     var orderColumn = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('created_at');
     var orderDirection = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('desc');
 
@@ -21832,30 +21833,24 @@ __webpack_require__.r(__webpack_exports__);
     var updateOrdering = function updateOrdering(column) {
       orderColumn.value = column;
       orderDirection.value = orderDirection.value === 'asc' ? 'desc' : 'asc';
-      getPosts(1, search_category.value, search_id.value, search_title.value, search_content.value, orderColumn.value, orderDirection.value);
+      getPosts(1, search_category.value, search_id.value, search_title.value, search_content.value, search_global.value, orderColumn.value, orderDirection.value);
     };
 
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.watch)(search_category, function (current, previous) {
-      getPosts(1, current, search_id.value, search_title.value, search_content.value);
+      getPosts(1, current, search_id.value, search_title.value, search_content.value, search_global.value);
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.watch)(search_id, function (current, previous) {
-      getPosts(1, search_category.value, current, search_title.value, search_content.value);
+      getPosts(1, search_category.value, current, search_title.value, search_content.value, search_global.value);
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.watch)(search_title, function (current, previous) {
-      getPosts(1, search_category.value, search_id.value, current, search_content.value);
+      getPosts(1, search_category.value, search_id.value, current, search_content.value, search_global.value);
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.watch)(search_content, function (current, previous) {
-      getPosts(1, search_category.value, search_id.value, search_title.value, current);
-    }); // watch(search_content.value, (current, previous) => {
-    //     getPosts(
-    //         1,
-    //         search_category.value,
-    //         search_id.value,
-    //         search_title.value,
-    //         current
-    //     )
-    // })
-
+      getPosts(1, search_category.value, search_id.value, search_title.value, current, search_global.value);
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.watch)(search_global, function (current, previous) {
+      getPosts(1, search_category.value, search_id.value, search_title.value, search_content.value, current);
+    });
     return {
       posts: posts,
       getPosts: getPosts,
@@ -21867,7 +21862,8 @@ __webpack_require__.r(__webpack_exports__);
       search_category: search_category,
       search_id: search_id,
       search_title: search_title,
-      search_content: search_content
+      search_content: search_content,
+      search_global: search_global
     };
   }
 });
@@ -22248,13 +22244,9 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "min-w-full align-middle"
 };
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mb-4"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select v-model=\"selectedCategory\" class=\"block mt-1 w-full sm:w-1/4 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50\">\n                    <option value=\"\" selected>-- Filter by category --</option>\n                    <option v-for=\"category in categories\" :value=\"category.id\" :key=\"category.id\">\n                        {{ category.name }}\n                    </option>\n                </select> ")], -1
-/* HOISTED */
-);
-
+var _hoisted_3 = {
+  "class": "mb-4 grid lg:grid-cols-4 gap-4"
+};
 var _hoisted_4 = {
   "class": "min-w-full divide-y divide-gray-200 border"
 };
@@ -22382,8 +22374,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_Pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Pagination");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.search_global = $event;
+    }),
+    type: "text",
+    placeholder: "Search...",
+    "class": "inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search_global]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $setup.search_id = $event;
     }),
     type: "text",
@@ -22392,7 +22393,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $setup.search_title = $event;
     }),
     type: "text",
@@ -22401,7 +22402,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search_title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $setup.search_category = $event;
     }),
     "class": "inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -22417,7 +22418,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ))], 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.search_category]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $setup.search_content = $event;
     }),
     type: "text",
@@ -22427,7 +22428,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search_content]])]), _hoisted_11, _hoisted_12]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "flex flex-row items-center justify-between cursor-pointer",
-    onClick: _cache[4] || (_cache[4] = function ($event) {
+    onClick: _cache[5] || (_cache[5] = function ($event) {
       return $setup.updateOrdering('id');
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -22452,7 +22453,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "flex flex-row items-center justify-between cursor-pointer",
-    onClick: _cache[5] || (_cache[5] = function ($event) {
+    onClick: _cache[6] || (_cache[6] = function ($event) {
       return $setup.updateOrdering('title');
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -22477,7 +22478,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )])])]), _hoisted_17, _hoisted_18, _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "flex flex-row items-center justify-between cursor-pointer",
-    onClick: _cache[6] || (_cache[6] = function ($event) {
+    onClick: _cache[7] || (_cache[7] = function ($event) {
       return $setup.updateOrdering('created_at');
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -22542,7 +22543,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* KEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Pagination, {
     data: $setup.posts,
-    onPaginationChangePage: _cache[7] || (_cache[7] = function (page) {
+    onPaginationChangePage: _cache[8] || (_cache[8] = function (page) {
       return $setup.getPosts(page, $setup.search_category);
     })
   }, null, 8
@@ -22816,6 +22817,7 @@ function usePosts() {
           search_id,
           search_title,
           search_content,
+          search_global,
           order_column,
           order_direction,
           _args = arguments;
@@ -22828,13 +22830,14 @@ function usePosts() {
               search_id = _args.length > 2 && _args[2] !== undefined ? _args[2] : '';
               search_title = _args.length > 3 && _args[3] !== undefined ? _args[3] : '';
               search_content = _args.length > 4 && _args[4] !== undefined ? _args[4] : '';
-              order_column = _args.length > 5 && _args[5] !== undefined ? _args[5] : 'created_at';
-              order_direction = _args.length > 6 && _args[6] !== undefined ? _args[6] : 'desc';
-              axios.get('/api/posts/?page=' + page + '&search_category=' + search_category + '&search_id=' + search_id + '&search_title=' + search_title + '&search_content=' + search_content + '&order_column=' + order_column + '&order_direction=' + order_direction).then(function (response) {
+              search_global = _args.length > 5 && _args[5] !== undefined ? _args[5] : '';
+              order_column = _args.length > 6 && _args[6] !== undefined ? _args[6] : 'created_at';
+              order_direction = _args.length > 7 && _args[7] !== undefined ? _args[7] : 'desc';
+              axios.get('/api/posts/?page=' + page + '&search_category=' + search_category + '&search_id=' + search_id + '&search_title=' + search_title + '&search_content=' + search_content + '&search_global=' + search_global + '&order_column=' + order_column + '&order_direction=' + order_direction).then(function (response) {
                 posts.value = response.data;
               });
 
-            case 8:
+            case 9:
             case "end":
               return _context.stop();
           }
