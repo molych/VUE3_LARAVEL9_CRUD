@@ -16,9 +16,10 @@ use \App\Http\Controllers\Api\TestController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
+    Route::get('categories', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 });
-
-Route::apiResource('posts', PostController::class);
-Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
