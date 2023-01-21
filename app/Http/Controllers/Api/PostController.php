@@ -76,6 +76,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        $this->authorize('posts.create');
         $post = Post::create($request->validated());
         $post->addMedia($request->thumbnail->path())
             ->toMediaCollection('post');
@@ -84,11 +85,13 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        $this->authorize('posts.update');
         return new PostResource($post);
     }
 
     public function update(Post $post, UpdatePostRequest $request)
     {
+        $this->authorize('posts.update');
         $post->update($request->validated());
 
         return new PostResource($post);
@@ -96,6 +99,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('posts.delete');
         $post->delete();
 
         return response()->noContent();
